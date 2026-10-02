@@ -1,0 +1,339 @@
+<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>طرنيب</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px);height:100%}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;height:100%;background:#0a2a1a;font-family:system-ui,"Segoe UI",Tahoma,sans-serif;color:#fff;overflow:hidden;user-select:none}
+#app{height:100%;display:flex;flex-direction:column;background:radial-gradient(ellipse at 50% 45%,#27905a 0,#146b41 45%,#0a3b25 100%)}
+#top{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;background:rgba(0,0,0,.45);border-bottom:2px solid #d4af37;font-size:13px}
+#top b{color:#ffd54f;font-size:16px}
+.mx{background:rgba(255,255,255,.15);color:#fff;border:0;border-radius:8px;padding:3px 9px;font-size:16px}
+#table{flex:1;position:relative;min-height:0}
+#hand{position:relative;height:140px;direction:ltr}
+.seat{position:absolute;text-align:center;font-size:12px}
+#s2{top:6px;left:50%;transform:translateX(-50%)}
+#s1{right:4px;top:50%;transform:translateY(-55%)}
+#s3{left:4px;top:50%;transform:translateY(-55%)}
+.av{width:44px;height:44px;border-radius:50%;background:#cfe3d8;border:2px solid #d4af37;margin:0 auto 2px;overflow:hidden;display:block}
+.av svg{display:block}
+.seat.on .av{box-shadow:0 0 0 3px #ffd54f,0 0 18px #ffd54f}
+.say{color:#ffd54f;min-height:16px;font-weight:700}
+.fan{display:flex;justify-content:center;min-width:44px;min-height:44px;align-items:center}
+.fan.v{flex-direction:column}
+.bk{display:block;flex:none;width:30px;height:44px;border-radius:5px;border:2px solid #fff;background:repeating-linear-gradient(45deg,#8e1b2d 0 5px,#b3293f 5px 10px);box-shadow:0 1px 4px rgba(0,0,0,.6)}
+.fan.h .bk+.bk{margin-left:-19px}
+.fan.v .bk{width:44px;height:30px}.fan.v .bk+.bk{margin-top:-20px}
+#ctr{position:absolute;left:50%;top:50%;width:200px;height:190px;margin:-95px 0 0 -100px}
+#ctr .c{position:absolute}
+.q0{bottom:0;left:71px}.q2{top:0;left:71px}.q1{right:0;top:53px}.q3{left:0;top:53px}
+.c{--w:64px;width:var(--w);height:calc(var(--w)*1.45);font-size:calc(var(--w)*.3);border-radius:calc(var(--w)*.11);background:linear-gradient(160deg,#fff,#ececec);box-shadow:0 2px 7px rgba(0,0,0,.55);color:#1b1b1b;direction:ltr;overflow:hidden}
+.c.rd{color:#d32f2f}
+.c .t{position:absolute;left:9%;top:4%;text-align:center;line-height:1;font-weight:800}
+.c .t span{display:block;font-size:.95em}
+.c .m{position:absolute;left:0;right:0;top:50%;margin-top:-.62em;text-align:center;font-size:1.7em;line-height:1.2;opacity:.92}
+.c.back{background:repeating-linear-gradient(45deg,#8e1b2d 0 6px,#b3293f 6px 12px);border:3px solid #fff}
+.hc{position:absolute;left:0;top:0;transition:transform .4s cubic-bezier(.2,.8,.3,1);cursor:pointer;transform-origin:50% 120%}
+.hc.xp{box-shadow:0 0 0 2px #ffd54f,0 2px 7px rgba(0,0,0,.55)}
+.hc.no{filter:brightness(.62)}
+#hint{position:absolute;bottom:4px;left:0;right:0;text-align:center;color:#ffd54f;font-weight:700;font-size:14px;pointer-events:none}
+#panel{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:rgba(8,18,12,.94);border:1px solid #d4af37;border-radius:18px;padding:16px;text-align:center;width:min(92%,330px);display:none;z-index:20;line-height:1.7;box-shadow:0 10px 40px rgba(0,0,0,.6)}
+.b{background:linear-gradient(#f0cc66,#b8902a);color:#201500;border:0;border-radius:10px;padding:10px 16px;font-weight:700;font-size:17px;margin:4px;font-family:inherit}
+.b:disabled,.mb:disabled{opacity:.35}
+h2{margin:0 0 6px;color:#ffd54f}
+#ov{position:fixed;inset:0;z-index:90;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.65)}
+.ovb{background:rgba(8,18,12,.97);border:1px solid #d4af37;border-radius:18px;padding:16px;width:min(94%,360px);max-height:82vh;overflow:auto;text-align:center;line-height:1.7}
+.ovb td{padding:2px 3px;text-align:center}
+#scr{position:fixed;inset:0;z-index:100;display:none;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:calc(20px + env(safe-area-inset-top,0px)) 20px calc(20px + env(safe-area-inset-bottom,0px));background:radial-gradient(ellipse at 50% 30%,#27905a,#0d4a2e 60%,#06241a);overflow:auto;text-align:center}
+.mt{font-size:40px;font-weight:800;color:#ffd54f;text-shadow:0 3px 12px #000}
+.mb{width:min(100%,320px);padding:15px;border:0;border-radius:14px;font-size:19px;font-weight:700;font-family:inherit;color:#201500;background:linear-gradient(#f0cc66,#b8902a);box-shadow:0 4px 0 #7a5d12}
+.mb.s{background:linear-gradient(#2c8f60,#176a43);color:#fff;box-shadow:0 4px 0 #0b3d26}
+.pcard{display:flex;align-items:center;gap:10px;background:rgba(0,0,0,.35);padding:6px 16px;border-radius:40px;border:1px solid #d4af37;justify-content:center}
+.pcard .av{margin:0}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;justify-content:center}
+.tab{padding:8px 14px;border-radius:10px;border:1px solid #d4af37;background:rgba(0,0,0,.3);color:#fff;font-family:inherit;font-size:15px}
+.tab.on{background:#d4af37;color:#201500;font-weight:700}
+.grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;width:min(100%,340px)}
+.gi{border-radius:12px;background:rgba(255,255,255,.1);padding:2px;border:2px solid transparent}
+.gi.on{border-color:#ffd54f;background:rgba(255,213,79,.25)}
+.gi .av{width:100%;height:auto;border-radius:10px;border:0}
+.tg{display:flex;justify-content:space-between;align-items:center;width:min(100%,320px);font-size:17px}
+.sw{width:54px;height:30px;border-radius:15px;border:0;background:#555;position:relative}
+.sw:after{content:"";position:absolute;top:3px;right:3px;width:24px;height:24px;border-radius:50%;background:#fff;transition:.2s}
+.sw.on{background:#2fb36b}.sw.on:after{right:27px}
+input.t{width:min(100%,300px);padding:12px;border-radius:12px;border:2px solid #d4af37;background:#0b2a1c;color:#fff;font-size:22px;text-align:center;font-family:inherit}
+</style></head><body>
+<div id="app"><div id="top"></div>
+<div id="table"><div class="seat" id="s2"></div><div class="seat" id="s1"></div><div class="seat" id="s3"></div><div id="ctr"></div><div id="hint"></div><div id="panel"></div></div>
+<div id="hand"></div></div>
+<div id="ov"><div class="ovb" id="ovb"></div></div>
+<div id="scr"></div>
+<script>
+const S=['♠','♥','♦','♣'],red=s=>s==1||s==2,rn=r=>({11:'J',12:'Q',13:'K',14:'A'})[r]||r;
+const $=id=>document.getElementById(id),sleep=ms=>new Promise(r=>setTimeout(r,ms));
+const esc=s=>String(s==null?'':s).slice(0,14).replace(/[&<>"']/g,c=>'&#'+c.charCodeAt(0)+';');
+const dec=id=>({s:id/20|0,r:id%20}),enc=c=>c.s*20+c.r;
+const ST={get(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+let PR=ST.get('pr',{name:'',face:0,gl:0}),SE=ST.get('se',{card:1,win:1,click:1,voice:1,vol:.7,time:0});
+let ISHOST=0,GEN=0,V=null,HE={},H=null,R=null,MYID='local',HOSTPEER=null,Q=Promise.resolve(),MODE=4,CODE='',LOB=0,TAB='char';
+const live=()=>H&&!H.stop;
+/* ---------- avatars ---------- */
+const FACES=[[0,0,'#f1c7a1','#2b1b12'],[0,1,'#c68a5a','#111'],[0,2,'#8d5a3b','#1a1a1a'],[0,3,'#e0ac80','#5a3a22'],[0,4,'#6b4129','#222'],[0,5,'#f6d3b3','#b5651d'],[0,0,'#a86f45','#3b2a1e'],[0,2,'#f1c7a1','#8a8a8a'],[0,3,'#4a2e1e','#111'],[0,5,'#d9a273','#222'],
+[1,0,'#f6d3b3','#4a2c17'],[1,1,'#c68a5a','#111'],[1,2,'#8d5a3b','#222'],[1,3,'#e0ac80','#b5651d'],[1,4,'#6b4129','#111'],[1,5,'#f1c7a1','#d9b34a'],[1,0,'#a86f45','#1a1a1a'],[1,2,'#f6d3b3','#7a1f1f'],[1,4,'#d9a273','#3b2a1e'],[1,1,'#4a2e1e','#222']];
+const GL=['','<g fill="none" stroke="#222" stroke-width="2"><circle cx="41" cy="46" r="7"/><circle cx="59" cy="46" r="7"/><path d="M48 46h4"/></g>','<g fill="none" stroke="#222" stroke-width="2"><rect x="34" y="40" width="14" height="11" rx="2"/><rect x="52" y="40" width="14" height="11" rx="2"/><path d="M48 45h4"/></g>','<g fill="#111"><rect x="33" y="40" width="15" height="10" rx="3"/><rect x="52" y="40" width="15" height="10" rx="3"/><rect x="48" y="43" width="4" height="2"/></g>'];
+function av(i,gl,z){const[g,st,sk,hc]=FACES[i]||FACES[0],f=`fill="${hc}"`,sh=['#2e6fb7','#b74a2e','#2eb774','#8a4fb7','#c2a02a'][i%5];
+const bF=[`<path d="M26 44Q22 10 50 10Q78 10 74 44L80 84H20Z" ${f}/>`,`<path d="M27 44Q25 10 50 10Q75 10 73 44L74 62H26Z" ${f}/>`,`<circle cx="50" cy="10" r="9" ${f}/>`,`<ellipse cx="76" cy="58" rx="7" ry="20" ${f}/>`,'',''];
+const cap=`<path d="M30 40Q34 18 50 18Q66 18 70 40Q56 28 30 40Z" ${f}/>`;
+const fF=[cap,cap,cap,cap,`<g ${f}><circle cx="26" cy="46" r="9"/><circle cx="26" cy="62" r="9"/><circle cx="74" cy="46" r="9"/><circle cx="74" cy="62" r="9"/><circle cx="34" cy="20" r="11"/><circle cx="50" cy="14" r="11"/><circle cx="66" cy="20" r="11"/></g>`,`<path d="M29 42Q26 14 52 14Q74 16 71 40Q60 24 38 30Q32 34 29 42Z" ${f}/>`];
+const mF=[`<path d="M30 40Q30 16 50 16Q70 16 70 40Q62 28 50 28Q38 28 30 40Z" ${f}/>`,`<path d="M31 38Q32 20 50 20Q68 20 69 38Q60 31 50 31Q40 31 31 38Z" ${f}/>`,`<path d="M30 42Q28 15 52 15Q72 17 70 42Q66 26 46 28Q36 30 30 42Z" ${f}/>`,`<g ${f}><circle cx="34" cy="24" r="10"/><circle cx="46" cy="18" r="10"/><circle cx="58" cy="18" r="10"/><circle cx="68" cy="26" r="10"/></g>`,`<path d="M29 40Q27 28 33 26L34 40Z" ${f}/><path d="M71 40Q73 28 67 26L66 40Z" ${f}/>`,`<path d="M30 38L34 18L42 28L50 12L58 28L66 18L70 38Q50 26 30 38Z" ${f}/>`];
+return `<svg viewBox="0 0 100 100" width="${z}" height="${z}">${g?bF[st]:''}<path d="M12 100Q14 70 50 66Q86 70 88 100Z" fill="${sh}"/><rect x="43" y="56" width="14" height="14" fill="${sk}"/><ellipse cx="50" cy="42" rx="20" ry="23" fill="${sk}"/>${g?fF[st]:mF[st]}${GL[gl|0]||''}</svg>`}
+/* ---------- sounds ---------- */
+let AC;const ac=()=>{try{AC=AC||new(window.AudioContext||window.webkitAudioContext)();if(AC.state=='suspended')AC.resume()}catch(e){}return AC};
+function tone(f,d,ty,v,t0,f2){const a=ac();if(!a)return;const o=a.createOscillator(),g=a.createGain(),t=a.currentTime+(t0||0);o.type=ty||'sine';o.frequency.setValueAtTime(f,t);if(f2)o.frequency.exponentialRampToValueAtTime(f2,t+d);g.gain.setValueAtTime((v||.3)*SE.vol,t);g.gain.exponentialRampToValueAtTime(.0008,t+d);o.connect(g);g.connect(a.destination);o.start(t);o.stop(t+d+.02)}
+function nz(d,v){const a=ac();if(!a)return;const n=a.sampleRate*d|0,b=a.createBuffer(1,n,a.sampleRate),x=b.getChannelData(0);for(let i=0;i<n;i++)x[i]=(Math.random()*2-1)*(1-i/n);const s=a.createBufferSource(),g=a.createGain(),f=a.createBiquadFilter();f.type='bandpass';f.frequency.value=2500;g.gain.value=v*SE.vol;s.buffer=b;s.connect(f);f.connect(g);g.connect(a.destination);s.start()}
+const SND={click(){SE.click&&tone(700,.05,'triangle',.2)},card(){SE.card&&nz(.1,.8)},win(){SE.win&&[523,659,784,1047].forEach((f,i)=>tone(f,.28,'triangle',.3,i*.13))},lose(){SE.win&&[392,349,311,233].forEach((f,i)=>tone(f,.32,'sawtooth',.18,i*.17))}};
+function voice(k,face){if(!SE.voice)return;const b=(FACES[face||0][0]?300:170)*(1+((face||0)%5)*.05);
+if(k=='laugh')for(let i=0;i<5;i++)tone(b*(1.5-i*.04),.09,'square',.13,i*.12);
+else if(k=='cry'){tone(b*1.8,.5,'sine',.3,0,b*1.1);tone(b*1.7,.5,'sine',.3,.55,b);tone(b*1.5,.6,'sine',.3,1.1,b*.8)}
+else if(k=='annoy')tone(b,.45,'sawtooth',.16,0,b*.55);else tone(b*1.1,.4,'sine',.3,0,b*2.2)}
+/* ---------- screens ---------- */
+const SC=h=>{$('scr').innerHTML=h;$('scr').style.display='flex'};
+const pchip=()=>`<div class="pcard"><span class="av" style="width:46px;height:46px">${av(PR.face,PR.gl,46)}</span><b>${esc(PR.name)||'لاعب'}</b></div>`;
+function menu(){LOB=0;SC(`<div class="mt">♠ طرنيب ♥</div>${pchip()}<button class="mb" data-a="play">اللعب</button><button class="mb" data-a="sub" data-v="4">لعبة جماعية</button><button class="mb" data-a="sub" data-v="2">لعب 1/1</button><button class="mb s" data-a="profile">تسجيل لاعب</button><button class="mb s" data-a="settings">الإعدادات</button>`)}
+const msgScr=m=>SC(`<div class="mt" style="font-size:22px;line-height:1.6">${m}</div><button class="mb" data-a="menu">رجوع</button>`);
+function profileScr(){SC(`<div class="mt" style="font-size:30px">تسجيل لاعب</div><span class="av" style="width:90px;height:90px">${av(PR.face,PR.gl,90)}</span><input class="t" id="nm" maxlength="14" placeholder="اكتب اسمك" value="${esc(PR.name)}"><button class="mb" data-a="save">حفظ</button>${PR.name?'<button class="mb s" data-a="menu">رجوع</button>':''}`)}
+function setScr(){let h=`<div class="mt" style="font-size:28px">الإعدادات</div><div class="tabs">${[['char','الشخصية'],['snd','الصوت'],['time','وقت اللعب']].map(([k,l])=>`<button class="tab${TAB==k?' on':''}" data-a="tab" data-v="${k}">${l}</button>`).join('')}</div>`;
+if(TAB=='char')h+=`<span class="av" style="width:80px;height:80px">${av(PR.face,PR.gl,80)}</span><div class="grid">${FACES.map((_,i)=>`<div class="gi${PR.face==i?' on':''}" data-a="face" data-v="${i}"><span class="av">${av(i,PR.gl,60)}</span></div>`).join('')}</div><div>النظارات</div><div class="tabs">${['بدون','دائرية','مربعة','شمسية'].map((l,i)=>`<button class="tab${PR.gl==i?' on':''}" data-a="gl" data-v="${i}">${l}</button>`).join('')}</div>`;
+else if(TAB=='snd')h+=[['card','صوت الورق'],['win','الفوز والخسارة'],['click','ضغط الأزرار'],['voice','أصوات الشخصية']].map(([k,l])=>`<div class="tg"><span>${l}</span><button class="sw${SE[k]?' on':''}" data-a="tog" data-v="${k}"></button></div>`).join('')+`<div class="tg"><span>مستوى الصوت</span><input type="range" id="vol" min="0" max="100" value="${SE.vol*100}"></div><div>تجربة الأصوات</div><div class="tabs">${[['card','ورق'],['win','فوز'],['lose','خسارة'],['laugh','ضحكة'],['cry','بكاء'],['annoy','انزعاج'],['wow','تعجب']].map(([k,l])=>`<button class="tab" data-a="test" data-v="${k}">${l}</button>`).join('')}</div>`;
+else h+=`<div>مدة الدور لكل لاعب</div><div class="tabs">${[[0,'بدون'],[10,'10 ثوانٍ'],[20,'20 ثانية'],[30,'30 ثانية']].map(([v,l])=>`<button class="tab${SE.time==v?' on':''}" data-a="time" data-v="${v}">${l}</button>`).join('')}</div>`;
+SC(h+'<button class="mb s" data-a="menu">رجوع</button>')}
+function subScr(m){MODE=m;SC(`<div class="mt" style="font-size:30px">${m==4?'لعبة جماعية':'لعب 1/1'}</div><button class="mb" data-a="code" data-v="1">إنشاء غرفة</button><button class="mb" data-a="code" data-v="0">الانضمام لغرفة</button><button class="mb s" data-a="menu">رجوع</button>`)}
+function codeScr(host){SC(`<div class="mt" style="font-size:26px">${host?'اكتب كود الغرفة (4 أرقام)':'أدخل كود الغرفة'}</div><input class="t" id="code" inputmode="numeric" maxlength="4" placeholder="0000" style="letter-spacing:8px"><div style="font-size:13px;opacity:.85;max-width:300px">للعب عبر الإنترنت: يفتح كل اللاعبين رابط اللعبة نفسه. المضيف ينشئ الغرفة أولاً، ثم يكتب الباقون نفس الكود.</div><button class="mb" data-a="go" data-v="${host?1:0}">${host?'إنشاء':'انضمام'}</button><button class="mb s" data-a="sub" data-v="${MODE}">رجوع</button>`)}
+function lobby(){if(!R||!LOB)return;const ps=R.peers(),isH=ISHOST;
+if(!isH&&!ps.some(p=>p.presence.host)){leaveAll();return msgScr('غادر المضيف الغرفة')}
+let h=`<div class="mt" style="font-size:24px">غرفة الانتظار</div><div>كود الغرفة <b style="font-size:30px;color:#ffd54f;letter-spacing:5px">${CODE}</b></div>`;
+ps.forEach(p=>{const q=p.presence;h+=`<div class="pcard"><span class="av" style="width:42px;height:42px">${av((+q.face|0)%20,q.gl|0,42)}</span><b>${esc(q.name)||'لاعب'}</b>${q.host?' 👑':''}</div>`});
+for(let i=ps.length;i<MODE;i++)h+='<div class="pcard" style="opacity:.5;padding:14px 30px">بانتظار لاعب…</div>';
+h+=isH?`<button class="mb" data-a="startnet" ${ps.length<2?'disabled':''}>ابدأ اللعب</button>`:'<div>بانتظار أن يبدأ المضيف اللعبة…</div>';
+SC(h+'<button class="mb s" data-a="menu">خروج</button>')}
+function hideOv(){$('ov').style.display='none'}
+function ov(h){$('ovb').innerHTML=h;$('ov').style.display='flex'}
+function leaveAll(){hideOv();GEN++;if(H){H.stop=1;if(H.w)H.w.done(0);if(H.ready)H.ready()}V=null;LOB=0;if(R){try{R.leave()}catch(e){}R=null}$('panel').style.display='none'}
+/* ---------- actions ---------- */
+const ACT={
+play(){leaveAll();MYID='local';startGame(4,['local',null,null,null],[{name:PR.name||'أنت',face:PR.face,gl:PR.gl},BOT(1),BOT(2),BOT(3)])},
+sub(v){subScr(+v)},code(v){codeScr(+v)},
+go(v){const c=($('code').value||'').replace(/\D/g,'');if(c.length!=4){$('code').style.borderColor='#f55';return}openRoom(MODE,c,+v)},
+profile(){profileScr()},settings(){TAB='char';setScr()},
+save(){const n=$('nm').value.trim();if(!n){$('nm').style.borderColor='#f55';return}PR.name=n.slice(0,14);ST.set('pr',PR);menu()},
+tab(v){TAB=v;setScr()},face(v){PR.face=+v;ST.set('pr',PR);setScr()},gl(v){PR.gl=+v;ST.set('pr',PR);setScr()},
+tog(v){SE[v]=SE[v]?0:1;ST.set('se',SE);setScr()},time(v){SE.time=+v;ST.set('se',SE);setScr()},
+test(v){SND[v]?SND[v]():voice(v,PR.face)},
+menu(){leaveAll();menu()},
+exitq(){ov('<h2>هل ستخرج من اللعبة؟</h2>ستغادر الجولة الحالية.<br><button class="b" data-a="menu">نعم، اخرج</button><button class="b" data-a="ovx">لا، أبقَ</button>')},
+ovx(){hideOv()},log(){ov(logHTML())},
+pred(v){$('panel').style.display='none';sendAct('pred',+v)},obj(v){$('panel').style.display='none';sendAct('obj',+v)},
+ready(){if(live()&&H.ready){const f=H.ready;H.ready=null;f()}},
+startnet(){startNet()}};
+document.addEventListener('click',e=>{const a=e.target.closest('[data-a]');if(!a)return;SND.click();const f=ACT[a.dataset.a];f&&f(a.dataset.v)});
+$('scr').addEventListener('input',e=>{if(e.target.id=='vol'){SE.vol=e.target.value/100;ST.set('se',SE)}});
+/* ---------- helpers ---------- */
+const BN=['','خالد','ريم','سلطان'],BF=[0,3,13,8],BOT=i=>({name:BN[i],face:BF[i],gl:0});
+const beats=(a,b,t)=>a.s==b.s?a.r>b.r:a.s==t;
+const winner=(tr,t)=>{let b=tr[0];for(const x of tr)if(beats(x.c,b.c,t))b=x;return b.p};
+const legalH=(c,hand,tr)=>{const led=tr.length?tr[0].c.s:-1;return led<0||c.s==led||!hand.some(x=>x.s==led)};
+function botPred(h,t,min){let e=0;h.forEach(c=>{if(c.s==t)e+=c.r==14?1:c.r==13?.85:c.r==12?.6:c.r==11?.45:c.r>=9?.35:.25;else e+=c.r==14?.8:c.r==13?.35:c.r==12?.1:0});
+let v=Math.max(min,Math.min(13,Math.round(e*1.35)));if(v==6)v=min<=5?5:7;return v}
+function botPlay(p){const h=H.hand[p].map(dec),tr=H.trick,t=H.trump,led=tr.length?tr[0].c.s:-1,want=H.round==0||H.tw[p]<H.pred[p];
+const low=a=>a.reduce((x,y)=>y.r<x.r?y:x),high=a=>a.reduce((x,y)=>y.r>x.r?y:x);
+const nt=h.filter(c=>c.s!=t),pool=nt.length?nt:h;
+if(led<0)return want?high(pool):low(pool);
+let best=tr[0];for(const x of tr)if(beats(x.c,best.c,t))best=x;
+const fol=h.filter(c=>c.s==led);
+if(fol.length){if(want){const w=fol.filter(c=>beats(c,best.c,t));return w.length?low(w):low(fol)}const u=fol.filter(c=>!beats(c,best.c,t));return u.length?high(u):low(fol)}
+if(want){const tt=h.filter(c=>c.s==t&&beats(c,best.c,t));return tt.length?low(tt):low(pool)}
+return nt.length?high(nt):low(h)}
+/* ---------- host engine ---------- */
+function ask(p,k,pay){return new Promise(res=>{if(H.stop)throw'stop';let tm;
+const done=v=>{clearTimeout(tm);if(H.w&&H.w.res===res)H.w=null;res(v)};
+const auto=()=>done(k=='pred'?botPred(H.hand[p].map(dec),H.trump,pay.min):k=='obj'?(H.bot[p]?1:0):enc(botPlay(p)));
+H.w={p,k,pay,res,done,auto};
+if(H.bot[p])tm=setTimeout(auto,700+Math.random()*600);else if(H.time)tm=setTimeout(auto,H.time*1000+1200)})}
+function onAct(s,k,v){if(!live())return;if(k=='ready'&&s==0)return ACT.ready();const w=H.w;if(!w||w.p!=s||w.k!=k)return;
+if(k=='pred'&&!(Number.isInteger(v)&&v>=Math.max(2,w.pay.min)&&v<=13&&v!=6))return;
+if(k=='obj'&&!(v===0||v===1))return;
+if(k=='play'&&!(H.hand[s].includes(v)&&legalH(dec(v),H.hand[s].map(dec),H.trick)))return;w.done(v)}
+function E(ev){if(R&&H.host)R.emit('ev',ev).catch(()=>{});return push(ev)}
+function push(ev){const g=GEN;Q=Q.then(()=>g==GEN?handle(ev):0).catch(console.error);return Q}
+function sendAct(k,v){if(live())onAct(V.me,k,v);else if(R&&V)R.emit('act',{seat:V.me,k,v}).catch(()=>{})}
+async function engine(){try{const NP=H.NP;H.dealer=Math.random()*NP|0;H.sc=Array(NP).fill(0);H.round=0;H.cc=0;
+for(;;){H.dealer=(H.dealer+1)%NP;const d=[];for(let s=0;s<4;s++)for(let r=2;r<=14;r++)d.push(s*20+r);
+for(let i=51;i>0;i--){const j=Math.random()*(i+1)|0;[d[i],d[j]]=[d[j],d[i]]}
+H.hand=[[],[],[],[]];H.ex=[0,0,0,0];
+for(let i=0;i<13*NP;i++){const q=(H.dealer+1+i%NP)%NP;H.hand[q].push(d[i]);if(i<NP)H.ex[q]=d[i]}
+H.tc=(Math.random()*4|0)*20+2+(Math.random()*13|0);H.trump=H.tc/20|0;
+await E({t:'deal',d:H.dealer,h:H.hand.map(a=>[...a]),ex:[...H.ex],tr:H.trump,tc:H.tc,sc:[...H.sc],round:H.round});
+let od=-1;
+for(let k=1;k<=NP&&od<0;k++){const q=(H.dealer+k)%NP,tc=H.hand[q].filter(x=>(x/20|0)==H.trump);
+if(tc.length==1&&tc[0]%20==12){await E({t:'turn',p:q,k:'obj',time:H.time});if(await ask(q,'obj',{}))od=q}}
+if(od>=0){await E({t:'redeal',p:od});continue}
+H.pred=Array(NP).fill(null);
+if(H.round>0){
+if(H.cc>=2){H.cc=0;H.pred=Array(NP).fill(3);await E({t:'forced',pred:[...H.pred]})}
+else{for(let k=1;k<=NP;k++){const q=(H.dealer+k)%NP,min=H.sc[q]>=37?4:H.sc[q]>=27?3:2;
+await E({t:'turn',p:q,k:'pred',min,time:H.time});const v=await ask(q,'pred',{min});H.pred[q]=v;await E({t:'pred',p:q,v})}
+const sum=H.pred.reduce((a,b)=>a+b,0);if(sum<11){H.cc++;await E({t:'cancel',sum});continue}H.cc=0}}
+H.tw=Array(NP).fill(0);let lead=(H.dealer+1)%NP;
+for(let t=0;t<13;t++){H.trick=[];
+for(let k=0;k<NP;k++){const q=(lead+k)%NP;await E({t:'turn',p:q,k:'play',time:H.time});
+const id=await ask(q,'play',{});H.hand[q]=H.hand[q].filter(x=>x!=id);H.trick.push({p:q,c:dec(id)});await E({t:'play',p:q,c:id})}
+const w=winner(H.trick,H.trump);H.tw[w]++;lead=w;let qa=0;
+const A=H.trick.find(x=>x.c.s==H.trump&&x.c.r==14),Q=H.trick.find(x=>x.c.s==H.trump&&x.c.r==12);
+if(A&&Q){H.sc[A.p]+=5;H.sc[Q.p]-=5;qa=[A.p,Q.p]}
+await E({t:'sweep',w,qa,sc:[...H.sc]})}
+const dl=Array(NP).fill(0);
+for(let q=0;q<NP;q++){const tk=H.tw[q];if(H.round==0)dl[q]=tk;else{const pr=H.pred[q],m=pr>=7?2:1;dl[q]=(tk>=pr?1:-1)*pr*m}H.sc[q]+=dl[q]}
+const mx=Math.max(...H.sc),end=mx>=41,win=end?H.sc.indexOf(mx):-1;
+await E({t:'result',sc:[...H.sc],dl,tw:[...H.tw],pred:[...H.pred],round:H.round,end,win});
+H.round++;await new Promise(r=>H.ready=r);if(H.stop)return;
+if(end){H.sc=Array(NP).fill(0);H.round=0;H.cc=0}}}
+catch(x){if(x!=='stop'&&!(H&&H.stop))console.error(x)}}
+function startGame(NP,peers,pl){GEN++;LOB=0;H={NP,peers,bot:peers.map(p=>!p),time:SE.time,hand:[],trick:[],host:!!R,w:null,ready:null,sc:[0,0]};
+const ev={t:'start',NP,pl,seats:peers};if(R)R.emit('ev',ev).catch(()=>{});push(ev);engine()}
+function startNet(){if(!ISHOST||!R)return;const ps=R.peers(),me=ps.find(p=>p.isMe),ord=[me,...ps.filter(p=>p!==me)].slice(0,MODE),map=MODE==4?[0,2,1,3]:[0,1],peers=[null,null,null,null],pl=[];
+ord.forEach((p,i)=>{const q=p.presence;peers[map[i]]=p.peer;pl[map[i]]={name:String(q.name||'لاعب').slice(0,14),face:(+q.face|0)%20,gl:(q.gl|0)%4}});
+for(let s=0;s<MODE;s++)if(!peers[s])pl[s]=BOT(s%3+1);
+startGame(MODE,peers,pl)}
+/* ---------- WebSocket transport: يتصل بخادم server.js الخاص بك ---------- */
+const SERVER_URL='';/* فارغ = نفس الخادم الذي قدّم الصفحة. وإن استضفت الصفحة في مكان آخر فاكتب مثل wss://اسم-تطبيقك.onrender.com/ws */
+const WS={join(rid,host,max){return new Promise((resolve,reject)=>{
+const url=SERVER_URL||(location.protocol=='file:'?'':(location.protocol=='https:'?'wss://':'ws://')+location.host+'/ws');
+if(!url)return reject('net');
+const cb={},pcb=[];let list=[],my={},myId='',ok=0,done=0,closed=0,ws,pi;
+const fin=(f,v)=>{if(!done){done=1;clearTimeout(to);f(v)}};
+const bad=v=>{if(ok)return;closed=1;try{ws.close()}catch(e){}fin(reject,v)};
+const to=setTimeout(()=>bad('timeout'),10000);
+const fire=(e,m)=>(cb[e]||[]).forEach(f=>{try{f(m)}catch(x){console.error(x)}});
+const notify=nl=>{const o=list;list=nl;if(JSON.stringify(o)==JSON.stringify(nl))return;
+const lf=o.filter(a=>!nl.some(b=>b.peer==a.peer)),jn=nl.filter(b=>!o.some(a=>a.peer==b.peer));
+pcb.forEach(f=>{try{f({joined:jn,left:lf})}catch(x){console.error(x)}})};
+const tx=o=>{if(ws&&ws.readyState==1)ws.send(JSON.stringify(o))};
+const R={on(e,f){(cb[e]=cb[e]||[]).push(f)},onPeers(f){pcb.push(f)},
+peers(){return list.map(p=>({peer:p.peer,presence:p.presence||{},isMe:p.peer==myId}))},
+async presence(o){my=o;tx({k:'pres',d:o})},async emit(e,d){tx({k:'m',e,d})},
+leave(){closed=1;clearInterval(pi);try{ws.close()}catch(e){}}};
+try{ws=new WebSocket(url)}catch(e){return reject('net')}
+ws.onopen=()=>{tx({k:'join',room:rid,host:host?1:0,max});pi=setInterval(()=>tx({k:'ping'}),25000)};
+ws.onmessage=ev=>{let d;try{d=JSON.parse(ev.data)}catch(e){return}if(!d)return;
+if(d.k=='hi'){myId=d.id;ok=1;fin(resolve,R)}
+else if(d.k=='err')bad(String(d.e))
+else if(d.k=='peers'&&Array.isArray(d.l))notify(d.l)
+else if(d.k=='m'&&typeof d.e=='string')fire(d.e,{peer:d.from,isMe:false,data:d.d})};
+ws.onerror=()=>{if(!ok)bad('net')};
+ws.onclose=()=>{clearInterval(pi);if(closed)return;if(ok)notify(list.filter(p=>p.peer==myId));else bad('net')};
+})}};
+async function openRoom(mode,code,host){SC('<div class="mt" style="font-size:24px">جارٍ الاتصال…</div>');leaveAll();
+const rid='tr'+mode+'x'+code;R=null;let err='';
+try{R=await WS.join(rid,host,mode)}catch(e){err=String(e);R=null}
+if(!R)return msgScr(err=='taken'?'هذا الكود مستخدم، اختر كوداً آخر':err=='nohost'?'الغرفة غير موجودة أو لم ينشئها المضيف بعد':err=='full'?'الغرفة ممتلئة':'تعذر الاتصال بالخادم، حاول مرة أخرى');
+MODE=mode;CODE=code;LOB=1;ISHOST=host;
+const fail=m=>{leaveAll();msgScr(m)};
+R.on('ev',m=>{if(m.isMe||live())return;if(m.peer!==HOSTPEER)return;const ev=m.data;if(!ev||typeof ev.t!='string')return;if(ev.t=='start'){GEN++;LOB=0}push(ev)});
+R.on('act',m=>{if(!live()||m.isMe)return;const d=m.data||{},s=H.peers.indexOf(m.peer);if(s<0||d.seat!==s)return;onAct(s,d.k,d.v)});
+R.onPeers(ch=>{if(LOB)lobby();if(V&&!live()&&HOSTPEER&&ch.left.some(p=>p.peer===HOSTPEER)){leaveAll();msgScr('غادر المضيف اللعبة');return}if(live())ch.left.forEach(p=>{const s=H.peers.indexOf(p.peer);if(s>=0&&!H.bot[s]){H.bot[s]=true;if(H.w&&H.w.p==s)H.w.auto()}})});
+await R.presence({name:PR.name||'لاعب',face:PR.face,gl:PR.gl,host:host?1:0});for(let i=0;i<14;i++){await sleep(450);if(!R||(host?i>=3:R.peers().some(p=>p.presence.host&&!p.isMe)))break}
+if(!R)return;const ps=R.peers(),hs=ps.filter(p=>p.presence.host&&!p.isMe);
+if(host&&hs.length)return fail('هذا الكود مستخدم، اختر كوداً آخر');
+if(!host&&!hs.length)return fail('الغرفة غير موجودة أو لم ينشئها المضيف بعد');
+if(!host&&ps.length>mode)return fail('الغرفة ممتلئة');
+MYID=ps.find(p=>p.isMe).peer;HOSTPEER=host?MYID:hs[0].peer;
+lobby()}
+/* ---------- viewer side ---------- */
+const posOf=s=>V.NP==2?(s==V.me?0:2):(s-V.me+4)%4,seatAt=q=>V.NP==2?(q==0?V.me:q==2?1-V.me:-1):(V.me+q)%4;
+function cardHTML(c,cls,w){return `<div class="c ${red(c.s)?'rd ':''}${cls||''}"${w?` style="--w:${w}px"`:''}><div class="t">${rn(c.r)}<span>${S[c.s]}</span></div><div class="m">${S[c.s]}</div></div>`}
+function cardEl(c,cls,w){const d=document.createElement('div');d.innerHTML=cardHTML(c,cls,w);return d.firstChild}
+const mk=(cx,cy,w)=>({left:cx-w/2,top:cy-w*.725,width:w,height:w*1.45});
+function seatRect(s){const q=posOf(s);if(q==0){const r=$('hand').getBoundingClientRect();return mk(r.left+r.width/2,r.top+r.height/2,64)}
+const f=$('s'+q).querySelector('.fan').getBoundingClientRect();return mk(f.left+f.width/2,f.top+f.height/2,30)}
+function fly(el,a,b,dur,rot,fade){const w=b.width,h=w*1.45;el.style.setProperty('--w',w+'px');
+Object.assign(el.style,{position:'fixed',left:0,top:0,zIndex:50,pointerEvents:'none'});document.body.appendChild(el);
+const T=(r,s,ro)=>`translate(${r.left+r.width/2-w/2}px,${r.top+r.height/2-h/2}px) scale(${s}) rotate(${ro}deg)`;
+return el.animate([{transform:T(a,a.width/w,0),opacity:1},{transform:T(b,1,rot||0),opacity:fade?0:1}],{duration:dur,easing:'cubic-bezier(.25,.8,.3,1)',fill:'forwards'}).finished.then(()=>el.remove())}
+function legal(c){return legalH(c,V.h,V.trick)}
+function render(){if(!V)return;const m=V.me,mp=V.pred[m];
+$('top').innerHTML=`<div><button class="mx" data-a="exitq">☰</button> <button class="mx" data-a="log">📋</button> نقاطك <b>${V.sc[m]}</b></div><div>${V.round?'طلبك <b>'+(mp==null?'—':mp)+'</b> · أخذت <b>'+V.tw[m]+'</b>':'جولة بدون توقع · أخذت <b>'+V.tw[m]+'</b>'}</div><div>الأتو <b style="color:${V.trump>=0&&red(V.trump)?'#ff7b7b':'#fff'}">${V.trump>=0?S[V.trump]:'—'}</b></div>`;
+for(let q=1;q<4;q++){const s=seatAt(q),e=$('s'+q);if(s<0){e.style.display='none';continue}e.style.display='';const n=V.dealing?V.shown[s]:V.cnt[s],p=V.pl[s];e.className='seat'+(V.turn==s?' on':'');
+const st=(V.round&&V.pred[s]!=null?'طلب '+V.pred[s]+' · ':'')+'أخذ '+V.tw[s];
+e.innerHTML=`<span class="av">${av(p.face,p.gl,44)}</span>${esc(p.name)} <b style="color:#ffd54f">${V.sc[s]}</b><div class="say">${V.say[s]||st}</div><div class="fan ${q==2?'h':'v'}">${'<i class="bk"></i>'.repeat(n)}</div>${V.ex[s]?'<div style="margin-top:4px;display:flex;justify-content:center">'+cardHTML(dec(V.ex[s]),'',30)+'</div>':''}`}
+const c=$('ctr');c.innerHTML='';
+if(V.dealing)for(let i=0;i<3;i++){const d=document.createElement('div');d.className='c back';d.style.cssText=`--w:40px;left:${80+i}px;top:${66+i}px`;c.appendChild(d)}
+V.trick.forEach(t=>{const e=cardEl(t.c,'q'+posOf(t.p),58);e.dataset.p=t.p;e.style.transform=`rotate(${t.rot}deg)`;if(t.fly)e.style.visibility='hidden';c.appendChild(e)});
+$('hint').textContent=V.pick?'دورك — اختر ورقة':'';
+const list=V.dealing?V.raw.slice(0,V.shown[V.me]):V.h,n=list.length,W=$('hand').clientWidth,cw=64,step=Math.min(40,(W-20-cw)/Math.max(n-1,1)),mid=(n-1)/2,keep={};
+list.forEach((cd,i)=>{const id=enc(cd);keep[id]=1;let e=HE[id];
+if(!e){e=cardEl(cd,'hc',cw);e.onclick=()=>{if(V&&V.pick&&legal(cd)){V.pick=0;sendAct('play',id)}};HE[id]=e;$('hand').appendChild(e)}
+const ok=V.pick&&legal(cd);e.classList.toggle('no',!!V.pick&&!ok);e.classList.toggle('xp',V.ex[V.me]==id);
+e.style.transform=`translate(${W/2-cw/2+(i-mid)*step}px,${22+Math.pow(i-mid,2)*.45-(ok?16:0)}px) rotate(${(i-mid)*2.3}deg)`;e.style.zIndex=i});
+for(const id in HE)if(!keep[id]){HE[id].remove();delete HE[id]}}
+setInterval(()=>{if(V&&V.dl&&(V.pick||$('panel').style.display=='block')){const s=Math.max(0,Math.ceil((V.dl-Date.now())/1000));$('hint').textContent='دورك ⏱ '+s}},500);
+function P(h){const p=$('panel');p.innerHTML=h;p.style.display='block'}
+const nm=q=>q==V.me?'أنت':esc(V.pl[q].name);
+function logHTML(){const rows=V.log;let h='<h2>سجل النتائج</h2>';
+const tot=V.sc.slice(0,V.NP).map((s,i)=>({i,s})).sort((a,b)=>b.s-a.s);
+h+='<div style="margin-bottom:8px"><b>الترتيب</b>'+tot.map((o,k)=>`<div>${k+1}. ${nm(o.i)} — <b style="color:#ffd54f">${o.s}</b></div>`).join('')+'</div>';
+if(!rows.length)h+='<div style="opacity:.7">لا توجد جولات مكتملة بعد</div>';
+rows.forEach(g=>{h+=`<div style="margin-top:8px;border-top:1px solid #d4af37;padding-top:6px"><b>الجولة ${g.r+1}${g.r?'':' (بدون توقع)'}</b><table style="width:100%;border-collapse:collapse;font-size:13px"><tr style="color:#ffd54f"><td>اللاعب</td><td>توقع</td><td>أخذ</td><td>النقاط</td><td>المجموع</td></tr>`;
+for(let q=0;q<V.NP;q++)h+=`<tr><td>${nm(q)}</td><td>${g.pred[q]==null?'—':g.pred[q]}</td><td>${g.tw[q]}</td><td style="color:${g.dl[q]<0?'#ff7b7b':'#7bff9b'}">${g.dl[q]>0?'+':''}${g.dl[q]}</td><td>${g.sc[q]}</td></tr>`;h+='</table></div>'});
+return h+'<button class="b" data-a="ovx">إغلاق</button>'}
+async function revealTrump(e){const w=Math.min(innerWidth*.28,110),el=cardEl(dec(e.tc),'',w),lb=document.createElement('div');
+Object.assign(el.style,{position:'fixed',left:'50%',top:'42%',zIndex:60,pointerEvents:'none',margin:`${-w*.725}px 0 0 ${-w/2}px`});
+lb.textContent=String(V.pl[e.d].name)+' يسحب ورقة الأتو';
+Object.assign(lb.style,{position:'fixed',left:0,right:0,top:`calc(42% + ${w*.85}px)`,textAlign:'center',zIndex:60,color:'#ffd54f',fontWeight:700,fontSize:'18px',textShadow:'0 2px 6px #000'});
+document.body.append(el,lb);SND.card();
+await el.animate([{transform:'scale(.2) rotateY(90deg)',opacity:0},{transform:'scale(1) rotateY(0)',opacity:1}],{duration:600,easing:'cubic-bezier(.2,.9,.3,1.2)',fill:'forwards'}).finished;
+await sleep(1400);if(V){V.trump=e.tr;render()}
+await el.animate([{opacity:1},{opacity:0}],{duration:300,fill:'forwards'}).finished;el.remove();lb.remove()}
+async function dealAnim(e){V.dealing=1;V.shown=[0,0,0,0];render();const d=$('ctr').getBoundingClientRect(),from=mk(d.left+d.width/2,d.top+d.height/2,40),NP=V.NP,n=13*NP,ps=[];
+const land=(i,p)=>{if(!V)return;V.shown[p]++;if(i<NP)V.ex[p]=e.ex[p];render();if(i%3==0||i<NP)SND.card()};
+for(let i=0;i<NP;i++){const p=(V.dealer+1+i%NP)%NP;ps.push(sleep(i*300).then(()=>{if(!V)return;return fly(cardEl(dec(e.ex[p])),from,seatRect(p),450,0)}).then(()=>land(i,p)))}
+await Promise.all(ps);await sleep(1200);if(!V)return;ps.length=0;
+for(let i=NP;i<n;i++){const p=(V.dealer+1+i%NP)%NP;ps.push(sleep((i-NP)*45).then(()=>{if(!V)return;const el=document.createElement('div');el.className='c back';return fly(el,from,seatRect(p),380,0)}).then(()=>land(i,p)))}
+await Promise.all(ps);if(!V)return;V.dealing=0;render();await sleep(700)}
+async function handle(e){if(!V&&e.t!='start')return;
+const hp=()=>{$('panel').style.display='none'};
+switch(e.t){
+case 'start':{const me=e.seats.indexOf(MYID);if(me<0)return;V={NP:e.NP,pl:e.pl,me,h:[],raw:[],cnt:[0,0,0,0],shown:[0,0,0,0],trump:-1,log:[],pred:[null,null,null,null],ex:[0,0,0,0],round:0,trick:[],tw:[0,0,0,0],sc:[0,0,0,0],turn:-1,say:['','','',''],dealing:0,pick:0,dl:0,dealer:0};
+HE={};$('hand').innerHTML='';$('scr').style.display='none';hp();render();break}
+case 'deal':{for(const k in HE){HE[k].remove();delete HE[k]}hp();Object.assign(V,{trump:-1,pred:[null,null,null,null],ex:[0,0,0,0],trick:[],tw:[0,0,0,0],say:['','','',''],dealer:e.d,pick:0,sc:e.sc,round:e.round});if(e.round==0)V.log=[];
+V.raw=e.h[V.me].map(dec);V.h=[...V.raw].sort((a,b)=>a.s-b.s||b.r-a.r);V.cnt=[0,1,2,3].map(i=>i<V.NP?13:0);V.dealing=1;V.shown=[0,0,0,0];render();await revealTrump(e);if(!V)return;await dealAnim(e);break}
+case 'turn':{V.turn=e.p;V.dl=e.time&&e.p==V.me?Date.now()+e.time*1000:0;
+if(e.p==V.me){if(e.k=='play')V.pick=1;
+else if(e.k=='pred'){let h='<h2>كم تتوقع أن تأخذ؟</h2><div>';for(let v=1;v<=13;v++)h+=`<button class="b" ${v==6||v<e.min?'disabled':''} data-a="pred" data-v="${v}" style="min-width:52px;padding:10px 0">${v}</button>`;P(h+'</div>'+(e.min>2?'<div>الحد الأدنى لك '+e.min+'</div>':''))}
+else if(e.k=='obj')P('<h2>اعتراض؟</h2>ليس معك من الأتو إلا ورقة المرأة<br><button class="b" data-a="obj" data-v="1">اعتراض وإعادة التوزيع</button><button class="b" data-a="obj" data-v="0">أكمل اللعب</button>')}
+render();break}
+case 'pred':{V.pred[e.p]=e.v;V.turn=-1;V.dl=0;hp();render();await sleep(450);break}
+case 'forced':{V.pred=e.pred;render();P('<h2>جولة إجبارية</h2>أُلغيت الجولة مرتين متتاليتين، فتوقع كل لاعب 3 تلقائياً');await sleep(2200);hp();break}
+case 'cancel':{P(`<h2>مجموع التوقعات ${e.sum}</h2>أقل من 11، تُلغى الجولة ويُعاد التوزيع`);await sleep(2200);hp();break}
+case 'redeal':{V.turn=-1;render();P(`<h2>اعتراض</h2>${esc(V.pl[e.p].name)} ليس معه من الأتو إلا المرأة، يُعاد التوزيع`);await sleep(2200);hp();break}
+case 'play':{const c=dec(e.c),p=e.p;let from;
+if(p==V.me){const el=HE[e.c];from=el?el.getBoundingClientRect():seatRect(p);V.h=V.h.filter(x=>enc(x)!=e.c);V.pick=0;V.dl=0}else from=seatRect(p);
+if(V.ex[p]==e.c)V.ex[p]=0;
+V.cnt[p]--;const ent={p,c,fly:1,rot:Math.random()*18-9};V.trick.push(ent);V.turn=-1;render();SND.card();
+const to=document.querySelector(`#ctr [data-p="${p}"]`).getBoundingClientRect();await fly(cardEl(c),from,to,400,ent.rot);ent.fly=0;render();break}
+case 'sweep':{await sleep(900);if(!V)return;V.tw[e.w]++;V.sc=e.sc;voice('laugh',V.pl[e.w].face);
+if(e.qa){V.say[e.qa[0]]='+5';V.say[e.qa[1]]='-5'}
+const rs=[...document.querySelectorAll('#ctr .c')].map(x=>x.getBoundingClientRect()),cs=V.trick.map(t=>t.c);V.trick=[];render();
+const s=seatRect(e.w),to=mk(s.left+s.width/2,s.top+s.height/2,26);await Promise.all(cs.map((c,i)=>fly(cardEl(c),rs[i],to,500,0,true)));
+if(e.qa)await sleep(700);V.say=['','','',''];render();break}
+case 'result':{V.sc=e.sc;V.tw=e.tw;V.log.push({r:e.round,tw:e.tw,pred:e.pred,dl:e.dl,sc:e.sc});render();const my=V.me,mf=V.pl[my].face;
+if(e.dl[my]>0)voice('wow',mf);else voice(Math.random()<.5?'cry':'annoy',mf);
+let m=`<h2>نتيجة الجولة ${e.round+1}</h2>`;
+for(let q=0;q<V.NP;q++)m+=`<div>${q==my?'<b>أنت</b>':esc(V.pl[q].name)}: ${e.tw[q]}${e.round?' من '+e.pred[q]:''} ← <b style="color:${e.dl[q]<0?'#ff7b7b':'#7bff9b'}">${e.dl[q]>0?'+':''}${e.dl[q]}</b> (المجموع ${e.sc[q]})</div>`;
+if(e.end){const w=e.win==my;setTimeout(w?SND.win:SND.lose,600);m+=`<h2>${w?'🎉 فزت باللعبة!':'فاز '+esc(V.pl[e.win].name)}</h2>`}
+m+=live()?`<button class="b" data-a="ready">${e.end?'لعبة جديدة':'الجولة التالية'}</button>`:'<div>بانتظار المضيف…</div>';
+m+='<button class="b" data-a="log">سجل النتائج</button>';if(e.end)m+='<button class="b" data-a="menu">القائمة</button>';P(m);break}}}
+/* ---------- boot ---------- */
+if(PR.name)menu();else profileScr();
+addEventListener('resize',render);
+</script></body></html>
